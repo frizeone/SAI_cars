@@ -1,10 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from functions import (
-    create_identity_matrix_numpy, create_identity_matrix_custom, visualize_data,
-    compute_cost_numpy, gradient_descent_numpy, predict_numpy,
-    compute_cost_custom, gradient_descent_custom, predict_custom, write_to_file
-)
+
+# Импортируйте нужные методы в зависимости от того, какую версию вы хотите использовать
+from methods_numpy import create_identity_matrix_numpy, compute_cost_numpy, gradient_descent_numpy, predict_numpy, \
+    write_to_file, visualize_data
+# или из methods_custom для самописных методов:
+from methods_custom import create_identity_matrix_custom, compute_cost_custom, gradient_descent_custom, predict_custom, write_to_file
 
 def main():
     # Спрашиваем у пользователя размерность матрицы
@@ -16,6 +17,7 @@ def main():
     if version_matrix == '1':
         identity_matrix = create_identity_matrix_numpy(n)
     elif version_matrix == '2':
+        from methods_custom import create_identity_matrix_custom
         identity_matrix = create_identity_matrix_custom(n)
     else:
         print("Некорректный выбор.")
@@ -56,6 +58,7 @@ def main():
 
     elif version == '2':
         # Использование самописных методов
+        from methods_custom import compute_cost_custom, gradient_descent_custom, predict_custom
         X_custom = X_with_ones.tolist()
         y_custom = y.tolist()
         theta_custom = [0, 0]
@@ -90,10 +93,6 @@ def main():
     plt.ylabel('Прибыль')
     plt.legend()
     plt.show()
-
-    # Пример предсказания
-    cars = 35000
-    print(f"Прогнозируемая прибыль для {cars} автомобили: {predicted_profit}")
 
 if __name__ == '__main__':
     main()
